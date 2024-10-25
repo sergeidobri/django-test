@@ -1,7 +1,6 @@
 menu_lst = [
     {'title': 'Главная', 'name': 'home'},
     {'title': 'Добавить инструкцию', 'name':'add'},
-    {'title': 'О сайте', 'name': 'about'},
 ]
 
 

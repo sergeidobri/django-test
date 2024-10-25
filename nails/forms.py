@@ -29,7 +29,3 @@ class AddInstructionForm(forms.ModelForm):
             "content": forms.Textarea(attrs={'cols': 50, 'rows': 5}),
         }
         labels = {'slug': 'URLыч'}
-
-
-class UploadFileForm(forms.Form):
-    file = forms.ImageField(label='Файл')

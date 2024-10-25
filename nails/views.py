@@ -1,12 +1,9 @@
-from django.http import HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from .models import Nails, TagPost, UploadFiles
-from .forms import AddInstructionForm, UploadFileForm
-from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
-from .utils import DataMixin, menu_lst
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.contrib.auth.decorators import login_required
+from .models import Nails, TagPost
+from .forms import AddInstructionForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .utils import DataMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
@@ -37,26 +34,6 @@ class ShowPost(DataMixin, DetailView):
         return get_object_or_404(Nails.available, slug=self.kwargs[self.slug_url_kwarg])
 
 
-def page_not_found(request, exception):
-    return HttpResponseNotFound("<h1>Страница не найдена</h1> <a href='http://127.0.0.1:8000/'>Вернуться на главную</a>")
-
-
-@login_required
-def about(request):
-    nails = Nails.objects.all()
-    paginator = Paginator(nails, 3)
-
-    page = request.GET.get('page')
-    try:
-        page_obj = paginator.page(page)
-    except PageNotAnInteger:
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        page_obj = paginator.page(paginator.num_pages)
-
-    return render(request, 'nails/about.html', {'title': 'О сайте', 'page_obj': page_obj, 'menu': menu_lst})
-
-
 class AddInstruction(PermissionRequiredMixin, LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddInstructionForm
     template_name = 'nails/add.html'
@@ -84,14 +61,6 @@ class DeleteInstruction(DataMixin, DeleteView):
     template_name = 'nails/delete_post.html'
     success_url = reverse_lazy("home")
     title_page = 'Удаление страницы'
-
-
-def order(request):
-    return render(request, 'nails/order.html', {'title':'Запись на ноготочки', 'menu': menu_lst})
-
-
-def login(request):
-    return render(request, 'nails/login.html', {'title':'Регистрация', 'menu': menu_lst})
 
 
 class NailsCategory(DataMixin, ListView):

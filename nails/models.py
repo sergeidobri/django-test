@@ -1,8 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.urls import reverse
-from pytils.translit import translify
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 
@@ -49,10 +47,6 @@ class Nails(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'slug_id': self.slug})
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(translify(self.title))
-        super().save(*args, **kwargs)
-
 
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name='Имя категории')
@@ -87,7 +81,3 @@ class Creator(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class UploadFiles(models.Model):
-    file = models.FileField(upload_to='upload_model')

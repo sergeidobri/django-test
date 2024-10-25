@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'nails.apps.NailsConfig',
     'users',
     'django_extensions',
-    'debug_toolbar',
     'social_django',
 ]
 
@@ -56,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'tatanails.urls'
@@ -76,6 +74,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'users.context_processors.get_nails_context',
             ],
+            'libraries': {
+                'nails_tags': 'nails.templatetags.nails_tags',
+            },
         },
     },
 ]
@@ -140,10 +141,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"  # это путь к каталогу, в котором веб-сервер ищет файлы статики.
+STATIC_ROOT = BASE_DIR / "staticfiles"  # расположение коренной папки staticfiles.
 
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / "media"
+# MEDIA_URL = '/media/'
+
+MEDIA_ROOT = STATIC_ROOT / "images"
+MEDIA_URL = "/staticfiles/images/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -179,19 +184,6 @@ AUTH_USER_MODEL = 'users.User'
 
 SOCIAL_AUTH_GITHUB_KEY = 'Ov23liOyRwZoSZ85r2Dr'
 SOCIAL_AUTH_GITHUB_SECRET = '08e925c46b8421d7dc705f31280f5e451bf634a9'
-
-SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.auth_allowed',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.user.get_username',
-    'social_core.pipeline.user.create_user',
-    'users.pipeline.new_users_handler',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
-)
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '52120901'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'snLyT3MaEoVNh5ZU15cf'

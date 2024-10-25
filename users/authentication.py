@@ -13,7 +13,6 @@ class EmailAuthBackend(BaseBackend):
         except (user_model.DoesNotExist, user_model.MultipleObjectsReturned):
             return None
 
-
     def get_user(self, user_id):
         user_model = get_user_model()
         try:
