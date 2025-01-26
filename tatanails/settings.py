@@ -87,23 +87,23 @@ WSGI_APPLICATION = 'tatanails.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': "django.db.backends.postgresql",
-        'NAME': 'tatanails_db',
-        'USER': 'tatanails',
-        'PASSWORD': '505050Ss',
-        'HOST': 'localhost',
-        'PORT': 5433,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': "django.db.backends.postgresql",
+#         'NAME': 'tatanails_db',
+#         'USER': 'tatanails',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': 5433,
+#     }
+# }
 
 
 
@@ -172,7 +172,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'teplichkinteplichkinov@gmail.com'
+EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = 'ytuswhttmupyobso'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
